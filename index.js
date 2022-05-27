@@ -1,13 +1,29 @@
 var inquirer = require("inquirer");
 
-function querying() {
-  connection.query("SELECT * FROM department", function (error, results) {
-    if (error) throw error;
-    console.log("results", results);
-    connection.end();
-  });
-}
+// need to add opening menu with these options here // view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
+function initialOptions() {
+    inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'chooseOptions',
+          message: 'Select an option.',
+          choices: [
+            'View All Departments',
+            'View All Roles',
+            'View All Employees',
+            'Add a Department',
+            'Add a Role',
+            'Add an Employee',
+          ],
+        },
+      ])}
 
+// need to add switch statement here
+
+
+
+// table prompts
 function addDepartment() {
   inquirer
     .prompt([
@@ -17,6 +33,8 @@ function addDepartment() {
         message: "what is your department id?",
       },
     ])
+
+    // try async/await instead of this
     .then (answers => {
       console.log(answers);
       Connection.query(
@@ -43,11 +61,11 @@ function addRole() {
           name: "title",
           message: "what is the title of your role?",
         },
-  {
-  type: "input",
-  name: "salary",
-  message: "what is your salary?",
-  },
+        {
+            type: "input",
+            name: "salary",
+            message: "what is your salary?",
+        }
       ])
       .then (answers => {
         console.log(answers);
