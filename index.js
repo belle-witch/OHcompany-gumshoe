@@ -1,10 +1,5 @@
 var inquirer = require("inquirer");
 
-// connect.connect(function (err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-// });
-
 function querying() {
   connection.query("SELECT * FROM department", function (error, results) {
     if (error) throw error;
@@ -38,5 +33,37 @@ function addDepartment() {
     });
 }
 
-
 addDepartment();
+
+function addRole() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "title",
+          message: "what is the title of your role?",
+        },
+  {
+  type: "input",
+  name: "salary",
+  message: "what is your salary?",
+  },
+      ])
+      .then (answers => {
+        console.log(answers);
+        Connection.query(
+          "INSERT INTO role",
+          {
+            title: answers.title,
+  salary: answers.salary,
+          },
+          function (error) {
+            if (error) throw error;
+            console.log("added role");
+            querying();
+          }
+        );
+      });
+  }
+  
+  addRole();
